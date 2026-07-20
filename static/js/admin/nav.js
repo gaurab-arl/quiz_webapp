@@ -4,9 +4,7 @@ const navItems = [
     { name: "Dashboard", section: "dashboard", active: true },
     { name: "Quizzes", section: "quizzes" },
     { name: "Question bank", section: "question-bank" },
-    { name: "Students", section: "students" },
-
-    { name: "Settings", section: "settings" }
+    
 ];
 
 navItems.forEach(item => {

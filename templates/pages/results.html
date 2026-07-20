@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results — {{ exam.title }} — KCC Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/root.css' %}">
+    <style>
+        body { font-family: 'Inter', sans-serif; background: var(--paper); }
+        .font-display { font-family: 'Bricolage Grotesque', sans-serif; }
+
+        /* Score ring */
+        .ring-svg { transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: var(--line); stroke-width: 10; }
+        .ring-fill { fill: none; stroke: var(--accent); stroke-width: 10;
+                     stroke-linecap: round; transition: stroke-dashoffset 1.2s ease; }
+
+        /* Answer review */
+        .answer-card { border-radius: 16px; border: 1.5px solid var(--line); padding: 16px 20px; margin-bottom: 12px; }
+        .answer-card.correct { border-color: var(--good); background: var(--good-soft); }
+        .answer-card.wrong   { border-color: #f87171; background: #fef2f2; }
+        .answer-card.skipped { border-color: var(--line); background: #f9f9f8; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-[var(--line)] px-6 py-3 flex items-center gap-4">
+    <a href="{% url 'dashboard' %}" class="font-display font-bold text-base tracking-tight">← KCC Quiz</a>
+    <span class="text-[var(--mute)] text-sm hidden sm:block">{{ exam.title }}</span>
+</header>
+
+<div class="max-w-2xl mx-auto px-5 py-10">
+
+    <!-- SCORE CARD -->
+    <div class="border border-[var(--line)] rounded-3xl p-8 bg-white/60 text-center mb-8">
+        <p class="font-display text-xs tracking-[0.25em] text-[var(--mute)] mb-4">YOUR RESULT</p>
+
+        <!-- Ring -->
+        <div class="relative inline-flex items-center justify-center mb-6">
+            <svg width="140" height="140" class="ring-svg" id="score-ring">
+                <circle class="ring-bg" cx="70" cy="70" r="58" />
+                <circle class="ring-fill" cx="70" cy="70" r="58"
+                    stroke-dasharray="364.4"
+                    stroke-dashoffset="364.4"
+                    id="ring-fill-el" />
+            </svg>
+            <div class="absolute text-center">
+                <p class="font-display font-bold text-3xl tracking-tight">{{ attempt.percentage }}%</p>
+                <p class="text-xs text-[var(--mute)]">score</p>
+            </div>
+        </div>
+
+        <h1 class="font-display font-bold text-2xl tracking-tight mb-1">
+            {% if attempt.percentage >= 80 %}Excellent! 🎉
+            {% elif attempt.percentage >= 60 %}Good job! 👍
+            {% elif attempt.percentage >= 40 %}Keep practising 💪
+            {% else %}Needs work 📚{% endif %}
+        </h1>
+        <p class="text-[var(--mute)] text-sm mb-6">{{ exam.title }}</p>
+
+        <!-- Mini stats -->
+        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-[var(--line)]">
+            <div>
+                <p class="font-display font-bold text-2xl text-green-600">{{ attempt.right_count }}</p>
+                <p class="text-xs text-[var(--mute)] mt-1">Correct</p>
+            </div>
+            <div>
+                <p class="font-display font-bold text-2xl text-red-500">{{ attempt.wrong_count }}</p>
+                <p class="text-xs text-[var(--mute)] mt-1">Wrong</p>
+            </div>
+            <div>
+                <p class="font-display font-bold text-2xl text-[var(--mute)]">
+                    {{ attempt.total|default:attempt.exam.question_count|add:"0" }}
+                </p>
+                <p class="text-xs text-[var(--mute)] mt-1">Total</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="flex flex-wrap gap-3 mb-10">
+        <a href="{% url 'dashboard' %}"
+            class="font-display font-semibold text-sm px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors">
+            Back to dashboard
+        </a>
+        <a href="{% url 'dashboard' %}"
+            class="font-display font-semibold text-sm px-6 py-3 rounded-full border border-[var(--line)] hover:border-[var(--ink)] transition-colors">
+            Try another quiz
+        </a>
+    </div>
+
+    <!-- ANSWER REVIEW -->
+    <h2 class="font-display font-bold text-xl tracking-tight mb-5">Answer review</h2>
+
+    {% for ans in answers %}
+    <div class="answer-card {% if ans.is_correct %}correct{% elif ans.selected_answer %}wrong{% else %}skipped{% endif %}">
+        <div class="flex items-start gap-3">
+            <span class="mt-0.5 text-xs font-display font-bold shrink-0">Q{{ forloop.counter }}</span>
+            <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium mb-3">{{ ans.question.question_text }}</p>
+
+                <div class="grid sm:grid-cols-2 gap-2 text-xs mb-3">
+                    {% for opt_key, _ in ans.question.ANSWER_CHOICES %}
+                    <div class="px-3 py-2 rounded-lg border
+                        {% if opt_key == ans.question.right_answer %}border-green-400 bg-green-50 text-green-800 font-semibold
+                        {% elif opt_key == ans.selected_answer and not ans.is_correct %}border-red-400 bg-red-50 text-red-700 line-through
+                        {% else %}border-[var(--line)] text-[var(--mute)]{% endif %}">
+                        <span class="font-display font-bold mr-1">{{ opt_key }}.</span>
+                        {% if opt_key == 'A' %}{{ ans.question.option_a }}
+                        {% elif opt_key == 'B' %}{{ ans.question.option_b }}
+                        {% elif opt_key == 'C' %}{{ ans.question.option_c }}
+                        {% elif opt_key == 'D' %}{{ ans.question.option_d }}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if not ans.selected_answer %}
+                <p class="text-xs text-[var(--mute)]">Not answered — correct: <strong>{{ ans.question.right_answer }}</strong></p>
+                {% elif ans.is_correct %}
+                <p class="text-xs text-green-700 font-medium">✓ Correct</p>
+                {% else %}
+                <p class="text-xs text-red-600">You chose <strong>{{ ans.selected_answer }}</strong> — correct: <strong>{{ ans.question.right_answer }}</strong></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p class="text-[var(--mute)] text-sm">No answers recorded.</p>
+    {% endfor %}
+
+</div>
+
+<script>
+    window.RESULT_PERCENTAGE = {{ attempt.percentage }};
+</script>
+<script src="{% static 'js/result.js' %}"></script>
+
+</body>
+</html>

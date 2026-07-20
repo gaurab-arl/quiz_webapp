@@ -8,354 +8,191 @@
     <title>Admin Dashboard — KCC Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/root.css' %}">
     <link rel="stylesheet" href="{% static 'css/admin.css' %}">
 </head>
 
 <body class="min-h-screen">
-    <!-- Mobile sidebar backdrop -->
-    <div id="sidebar-backdrop"
-        class="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 hidden opacity-0 transition-opacity duration-300"></div>
+    <!-- Mobile backdrop -->
+    <div id="sidebar-backdrop" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-30 hidden opacity-0 transition-opacity duration-300"></div>
+
     <div class="lg:grid lg:grid-cols-[260px_1fr] min-h-screen">
 
-        <!-- SIDEBAR (desktop sticky + mobile drawer) -->
+        <!-- SIDEBAR -->
         <aside id="sidebar"
             class="fixed lg:static inset-y-0 left-0 z-40 w-[260px] flex flex-col justify-between bg-[var(--ink)] text-[var(--paper)] px-6 py-8 h-screen -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out overflow-y-auto">
             <div>
                 <div class="font-display font-bold text-xl tracking-tight mb-10">KCC Quiz</div>
-                <nav class="nab-bar space-y-1">
-                   <!-- this is nav bar -->
+                <nav class="space-y-1" id="admin-nav">
+                    <a href="#" data-section="dashboard" class="nav-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+                        Dashboard
+                    </a>
+                    <a href="#" data-section="students" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                        Students
+                    </a>
+                    <a href="#" data-section="question-bank" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>
+                        Question Bank
+                    </a>
+                    <a href="#" data-section="settings" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                        Settings
+                    </a>
                 </nav>
             </div>
 
             <div class="flex items-center gap-3 px-2 mt-6 pt-4 border-t border-white/10">
-                <div
-                    class="w-9 h-9 rounded-full bg-[var(--accent)] flex items-center justify-center font-display font-semibold text-sm shrink-0">
-                    MB</div>
-                <div class="min-w-0">
-                    <p class="text-sm font-medium truncate">Mira Bhattarai</p>
-                    <p class="text-xs text-[#8A8A85] truncate">Teacher</p>
+                <div class="w-9 h-9 rounded-full bg-[var(--accent)] flex items-center justify-center font-display font-semibold text-sm shrink-0">
+                    {{ initials }}
                 </div>
-                <a href="{% url 'logout' %}" class="ml-auto text-[#8A8A85] hover:text-[var(--paper)] transition-colors"
-                    title="Log out">
+                <div class="min-w-0">
+                    <p class="text-sm font-medium truncate">{{ full_name }}</p>
+                    <p class="text-xs text-[#8A8A85] truncate">Admin</p>
+                </div>
+                <a href="{% url 'logout' %}" class="ml-auto text-[#8A8A85] hover:text-[var(--paper)] transition-colors" title="Log out">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-                        <path d="M16 17l5-5-5-5" />
-                        <path d="M21 12H9" />
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+                        <path d="M16 17l5-5-5-5"/>
+                        <path d="M21 12H9"/>
                     </svg>
                 </a>
             </div>
         </aside>
 
         <!-- MAIN -->
-        <main class="px-6 sm:px-10 py-8 sm:py-10 max-w-7xl w-full overflow-y-auto scroll">
+        <main class="px-6 sm:px-10 py-8 sm:py-10 max-w-7xl w-full">
 
             <!-- mobile top bar -->
             <div class="lg:hidden flex items-center justify-between mb-8">
-                <button id="sidebar-open" aria-label="Open menu"
-                    class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-black/5 transition-colors -ml-1">
+                <button id="sidebar-open" aria-label="Open menu" class="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-black/5 transition-colors -ml-1">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="3" y1="6" x2="21" y2="6" />
-                        <line x1="3" y1="12" x2="21" y2="12" />
-                        <line x1="3" y1="18" x2="21" y2="18" />
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
                     </svg>
                 </button>
                 <div class="font-display font-bold text-lg tracking-tight">KCC Quiz</div>
-                <div
-                    class="w-9 h-9 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center font-display font-semibold text-sm">
-                    MB</div>
+                <div class="w-9 h-9 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center font-display font-semibold text-sm">{{ initials }}</div>
             </div>
 
             <!-- ====== DASHBOARD SECTION ====== -->
             <section id="dashboard" class="section-content">
                 <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
                     <div>
-                        <p class="font-display text-xs tracking-[0.25em] text-[var(--mute)] mb-2">CLASS 10 · SECTION B
-                        </p>
-                        <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Good evening, Mira.</h1>
+                        <p class="font-display text-xs tracking-[0.25em] text-[var(--mute)] mb-2">ADMIN PANEL</p>
+                        <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Welcome, {{ display_name }}.</h1>
                     </div>
-                    <a href="#"
-                        class="font-display font-semibold text-sm px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors">
-                        + Create quiz
-                    </a>
                 </div>
 
-                <!-- stat cards -->
+                <!-- Stat cards -->
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                     <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
                         <p class="text-xs text-[var(--mute)] mb-2">Total students</p>
-                        <p class="font-display font-bold text-3xl tracking-tight">142</p>
+                        <p class="font-display font-bold text-3xl tracking-tight">{{ total_students }}</p>
                     </div>
                     <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                        <p class="text-xs text-[var(--mute)] mb-2">Active quizzes</p>
-                        <p class="font-display font-bold text-3xl tracking-tight">18</p>
+                        <p class="text-xs text-[var(--mute)] mb-2">Exams created</p>
+                        <p class="font-display font-bold text-3xl tracking-tight">{{ total_exams }}</p>
                     </div>
                     <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                        <p class="text-xs text-[var(--mute)] mb-2">Avg. class score</p>
-                        <p class="font-display font-bold text-3xl tracking-tight" style="color:var(--accent)">76%</p>
+                        <p class="text-xs text-[var(--mute)] mb-2">Avg. score</p>
+                        <p class="font-display font-bold text-3xl tracking-tight" style="color:var(--accent)">
+                            {% if avg_score %}{{ avg_score }}%{% else %}—{% endif %}
+                        </p>
                     </div>
                     <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                        <p class="text-xs text-[var(--mute)] mb-2">Completion rate</p>
-                        <p class="font-display font-bold text-3xl tracking-tight">91%</p>
+                        <p class="text-xs text-[var(--mute)] mb-2">Total attempts</p>
+                        <p class="font-display font-bold text-3xl tracking-tight">{{ total_attempts }}</p>
                     </div>
                 </div>
 
+                <!-- Question bank summary -->
                 <div class="grid lg:grid-cols-[1.7fr_1fr] gap-6">
-                    <div class="space-y-6">
-
-                        <!-- quiz management -->
-                        <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
-                            <div class="flex items-center justify-between mb-6">
-                                <h2 class="font-display font-bold text-2xl tracking-tight">Your quizzes</h2>
-                                <a href="#quizzes"
-                                    class="text-sm text-[var(--mute)] hover:text-[var(--ink)] transition-colors">View
-                                    all
-                                    →</a>
-                            </div>
-
-                            <div class="overflow-x-auto -mx-2">
-                                <table class="w-full text-sm min-w-[560px]">
-                                    <thead>
-                                        <tr class="text-left text-xs text-[var(--mute)] border-b border-[var(--line)]">
-                                            <th class="font-medium py-3 px-2">Quiz</th>
-                                            <th class="font-medium py-3 px-2">Status</th>
-                                            <th class="font-medium py-3 px-2">Attempts</th>
-                                            <th class="font-medium py-3 px-2">Avg. score</th>
-                                            <th class="font-medium py-3 px-2"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-[var(--line)]">
-                                        <tr class="row-hover">
-                                            <td class="py-4 px-2">
-                                                <p class="font-medium">Bonding & Structure</p>
-                                                <p class="text-xs text-[var(--mute)] mt-0.5">Chemistry · 20 questions
-                                                </p>
-                                            </td>
-                                            <td class="py-4 px-2">
-                                                <span
-                                                    class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full"
-                                                    style="background:var(--good-soft);color:var(--good)">
-                                                    <span class="status-dot"
-                                                        style="background:var(--good)"></span>Published
-                                                </span>
-                                            </td>
-                                            <td class="py-4 px-2">64</td>
-                                            <td class="py-4 px-2 font-display font-semibold">81%</td>
-                                            <td class="py-4 px-2 text-right"><a href="#"
-                                                    class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                        </tr>
-                                        <tr class="row-hover">
-                                            <td class="py-4 px-2">
-                                                <p class="font-medium">Calculus Basics</p>
-                                                <p class="text-xs text-[var(--mute)] mt-0.5">Mathematics · 15 questions
-                                                </p>
-                                            </td>
-                                            <td class="py-4 px-2">
-                                                <span
-                                                    class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full"
-                                                    style="background:var(--good-soft);color:var(--good)">
-                                                    <span class="status-dot"
-                                                        style="background:var(--good)"></span>Published
-                                                </span>
-                                            </td>
-                                            <td class="py-4 px-2">58</td>
-                                            <td class="py-4 px-2 font-display font-semibold">74%</td>
-                                            <td class="py-4 px-2 text-right"><a href="#"
-                                                    class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                        </tr>
-                                        <tr class="row-hover">
-                                            <td class="py-4 px-2">
-                                                <p class="font-medium">Newton's Laws — Review</p>
-                                                <p class="text-xs text-[var(--mute)] mt-0.5">Physics · 25 questions</p>
-                                            </td>
-                                            <td class="py-4 px-2">
-                                                <span
-                                                    class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full"
-                                                    style="background:var(--warn-soft);color:var(--warn)">
-                                                    <span class="status-dot" style="background:var(--warn)"></span>Draft
-                                                </span>
-                                            </td>
-                                            <td class="py-4 px-2">—</td>
-                                            <td class="py-4 px-2 font-display font-semibold text-[var(--mute)]">—</td>
-                                            <td class="py-4 px-2 text-right"><a href="#"
-                                                    class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                        </tr>
-                                        <tr class="row-hover">
-                                            <td class="py-4 px-2">
-                                                <p class="font-medium">Grammar & Comprehension</p>
-                                                <p class="text-xs text-[var(--mute)] mt-0.5">English · 20 questions</p>
-                                            </td>
-                                            <td class="py-4 px-2">
-                                                <span
-                                                    class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full"
-                                                    style="background:var(--good-soft);color:var(--good)">
-                                                    <span class="status-dot"
-                                                        style="background:var(--good)"></span>Published
-                                                </span>
-                                            </td>
-                                            <td class="py-4 px-2">71</td>
-                                            <td class="py-4 px-2 font-display font-semibold">88%</td>
-                                            <td class="py-4 px-2 text-right"><a href="#"
-                                                    class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- most missed questions -->
-                        <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
-                            <h2 class="font-display font-bold text-xl tracking-tight mb-1">Most missed questions</h2>
-                            <p class="text-[var(--mute)] text-sm mb-6">Worth revisiting in class — these are tripping
-                                students up.</p>
-                            <div class="divide-y divide-[var(--line)]">
-                                <div class="flex items-center justify-between py-4 gap-4">
-                                    <div class="min-w-0">
-                                        <p class="font-medium truncate">"Which gas is released at the cathode during
-                                            electrolysis of water?"</p>
-                                        <p class="text-xs text-[var(--mute)] mt-1">Chemistry — Bonding & Structure</p>
-                                    </div>
-                                    <span class="font-display font-semibold shrink-0" style="color:var(--accent)">62%
-                                        wrong</span>
-                                </div>
-                                <div class="flex items-center justify-between py-4 gap-4">
-                                    <div class="min-w-0">
-                                        <p class="font-medium truncate">"What is the derivative of sin(x)cos(x)?"</p>
-                                        <p class="text-xs text-[var(--mute)] mt-1">Mathematics — Calculus Basics</p>
-                                    </div>
-                                    <span class="font-display font-semibold shrink-0" style="color:var(--accent)">54%
-                                        wrong</span>
-                                </div>
-                                <div class="flex items-center justify-between py-4 gap-4">
-                                    <div class="min-w-0">
-                                        <p class="font-medium truncate">"A 2kg block accelerates at 3m/s² — find the net
-                                            force."</p>
-                                        <p class="text-xs text-[var(--mute)] mt-1">Physics — Newton's Laws</p>
-                                    </div>
-                                    <span class="font-display font-semibold shrink-0" style="color:var(--accent)">49%
-                                        wrong</span>
-                                </div>
-                            </div>
+                    <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
+                        <h2 class="font-display font-bold text-xl tracking-tight mb-2">Overview</h2>
+                        <p class="text-[var(--mute)] text-sm mb-6">
+                            You have <strong>{{ total_questions }}</strong> questions in the bank across all subjects.
+                            Students have taken <strong>{{ total_attempts }}</strong> practice exams.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <button data-section="question-bank" onclick="navigateTo('question-bank', this)"
+                                class="font-display font-semibold text-sm px-5 py-2.5 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors">
+                                Manage question bank →
+                            </button>
+                            <button data-section="students" onclick="navigateTo('students', this)"
+                                class="font-display font-semibold text-sm px-5 py-2.5 rounded-full border border-[var(--line)] hover:border-[var(--ink)] transition-colors">
+                                View students →
+                            </button>
                         </div>
                     </div>
 
-                    <!-- SIDE COLUMN -->
-                    <div class="space-y-6">
-                        <div class="border border-[var(--line)] rounded-3xl p-6 bg-white/60">
-                            <h2 class="font-display font-bold text-lg tracking-tight mb-5">Top performers</h2>
-                            <div class="space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <span class="font-display text-sm text-[var(--mute)] w-4">1</span>
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-xs font-display font-semibold text-white">
-                                        SP</div>
-                                    <span class="text-sm flex-1">Sita Poudel</span>
-                                    <span class="text-sm font-display font-semibold">96%</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="font-display text-sm text-[var(--mute)] w-4">2</span>
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">
-                                        RS</div>
-                                    <span class="text-sm flex-1">Rohan Shrestha</span>
-                                    <span class="text-sm font-display font-semibold">91%</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="font-display text-sm text-[var(--mute)] w-4">3</span>
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">
-                                        GA</div>
-                                    <span class="text-sm flex-1">Gaurab Aryal</span>
-                                    <span class="text-sm font-display font-semibold">82%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border border-[var(--line)] rounded-3xl p-6 bg-white/60">
-                            <h2 class="font-display font-bold text-lg tracking-tight mb-5">Needs attention</h2>
-                            <p class="text-xs text-[var(--mute)] mb-4">Students scoring below 50% this week.</p>
-                            <div class="space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">
-                                        PK</div>
-                                    <span class="text-sm flex-1">Prakash K.C.</span>
-                                    <span class="text-sm font-display font-semibold text-[var(--mute)]">41%</span>
-                                </div>
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">
-                                        AT</div>
-                                    <span class="text-sm flex-1">Anita Tamang</span>
-                                    <span class="text-sm font-display font-semibold text-[var(--mute)]">38%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border border-[var(--line)] rounded-3xl p-6 bg-[var(--ink)] text-[var(--paper)]">
-                            <h2 class="font-display font-bold text-lg tracking-tight mb-2">Question bank</h2>
-                            <p class="text-sm text-[#8A8A85] mb-5">312 questions across 6 subjects.</p>
-                            <a href="#question-bank"
-                                class="font-display font-semibold text-sm px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors inline-block">
-                                Manage bank →
-                            </a>
-                        </div>
+                    <div class="border border-[var(--line)] rounded-3xl p-6 bg-[var(--ink)] text-[var(--paper)]">
+                        <h2 class="font-display font-bold text-lg tracking-tight mb-2">Quick stats</h2>
+                        <p class="text-sm text-[#8A8A85] mb-5">{{ total_questions }} questions · {{ total_students }} students</p>
+                        <p class="text-xs text-[#8A8A85]">Add questions to the bank so students can start taking practice quizzes.</p>
                     </div>
-                </div>
-            </section>
-
-            <!-- ====== QUIZZES SECTION ====== -->
-            <section id="quizzes" class="section-content hidden">
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-6">Quizzes</h2>
-                <p class="text-[var(--mute)] mb-8">Manage all your quizzes here.</p>
-                <div class="border border-[var(--line)] rounded-3xl p-8 bg-white/60">
-                    <p class="text-center text-[var(--mute)] py-12">Quiz management content goes here.</p>
-                </div>
-            </section>
-
-            <!-- ====== QUESTION BANK SECTION ====== -->
-            <section id="question-bank" class="section-content hidden">
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-6">Question Bank</h2>
-                <p class="text-[var(--mute)] mb-8">Browse and manage all questions.</p>
-                <div class="border border-[var(--line)] rounded-3xl p-8 bg-white/60">
-                    <p class="text-center text-[var(--mute)] py-12">Question bank content goes here.</p>
                 </div>
             </section>
 
             <!-- ====== STUDENTS SECTION ====== -->
             <section id="students" class="section-content hidden">
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-6">Students</h2>
-                <p class="text-[var(--mute)] mb-8">View and manage student profiles.</p>
-                <div class="border border-[var(--line)] rounded-3xl p-8 bg-white/60">
-                    <p class="text-center text-[var(--mute)] py-12">Student management content goes here.</p>
+                <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-2">Students</h1>
+                <p class="text-[var(--mute)] mb-8">{{ total_students }} student{{ total_students|pluralize }} registered.</p>
+                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
+                    <p class="text-center text-[var(--mute)] py-12 text-sm">
+                        Student management coming soon. Students are created when they sign up.
+                    </p>
                 </div>
             </section>
 
-            <!-- ====== ANALYTICS SECTION ====== -->
-            <section id="analytics" class="section-content hidden">
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-6">Analytics</h2>
-                <p class="text-[var(--mute)] mb-8">Track performance and engagement.</p>
-                <div class="border border-[var(--line)] rounded-3xl p-8 bg-white/60">
-                    <p class="text-center text-[var(--mute)] py-12">Analytics dashboard content goes here.</p>
+            <!-- ====== QUESTION BANK SECTION ====== -->
+            <section id="question-bank" class="section-content hidden">
+                <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-2">Question Bank</h1>
+                <p class="text-[var(--mute)] mb-8">{{ total_questions }} question{{ total_questions|pluralize }} across all subjects.</p>
+                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
+                    <p class="text-sm text-[var(--mute)] mb-4">
+                        To add questions, use the <strong>Django Admin</strong> panel at
+                        <a href="/admin/" class="underline hover:text-[var(--ink)]">/admin/</a> or ask your developer to import a question set.
+                    </p>
+                    <a href="/admin/core/question/add/"
+                        class="font-display font-semibold text-sm px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors inline-block">
+                        Add question in admin →
+                    </a>
                 </div>
             </section>
 
             <!-- ====== SETTINGS SECTION ====== -->
             <section id="settings" class="section-content hidden">
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-6">Settings</h2>
-                <p class="text-[var(--mute)] mb-8">Configure your account and preferences.</p>
-                <div class="border border-[var(--line)] rounded-3xl p-8 bg-white/60">
-                    <p class="text-center text-[var(--mute)] py-12">Settings content goes here.</p>
+                <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-2">Settings</h1>
+                <p class="text-[var(--mute)] mb-8">Manage your account preferences.</p>
+                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60 space-y-4">
+                    <div>
+                        <p class="text-xs text-[var(--mute)] mb-1">Name</p>
+                        <p class="font-medium">{{ full_name }}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-[var(--mute)] mb-1">Email</p>
+                        <p class="font-medium">{{ user.email }}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-[var(--mute)] mb-1">Role</p>
+                        <p class="font-medium">Admin</p>
+                    </div>
+                    <div class="pt-4 border-t border-[var(--line)]">
+                        <a href="{% url 'logout' %}"
+                            class="font-display font-semibold text-sm px-6 py-3 rounded-full border border-[var(--line)] hover:border-red-400 hover:text-red-600 transition-colors inline-block">
+                            Log out
+                        </a>
+                    </div>
                 </div>
             </section>
 
         </main>
     </div>
-    <script src="{% static 'js/admin-dashboard.js' %}" defer></script>
-    <script src="{% static 'js/admin/nav.js' %}" ></script>
-</body>
 
+    <script src="{% static 'js/admin-dashboard.js' %}" defer></script>
+</body>
 </html>

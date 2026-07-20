@@ -2,6 +2,18 @@
    admin-dashboard.js — Navbar interactivity
    ============================================================ */
 
+// Exposed globally so inline onclick in HTML can call navigateTo()
+window.navigateTo = function (sectionId) {
+    document.querySelectorAll('.section-content').forEach(s => s.classList.add('hidden'));
+    const target = document.getElementById(sectionId);
+    if (target) target.classList.remove('hidden');
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.section === sectionId);
+    });
+    history.pushState(null, null, `#${sectionId}`);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ── Elements ────────────────────────────────────────────
