@@ -1,0 +1,94 @@
+/* ========================================
+   ROOT.CSS — shared variables + base styles
+   ======================================== */
+
+/* ---------- design tokens ---------- */
+:root {
+    --ink: #0B0B0C;
+    --paper: #FAFAF8;
+    --line: #E4E3DD;
+    --mute: #7A7A75;
+    --accent: #3B2FFF;
+    --accent-soft: #ECEBFF;
+    --good: #1FA463;
+    --good-soft: #E6F6EE;
+    --warn: #B8860B;
+    --warn-soft: #FBF3DC;
+}
+
+/* ---------- reset + base ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    height: 100%;
+}
+
+.font-display {
+    font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+::selection {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* ---------- shared utility classes ---------- */
+.bg-paper {
+    background: var(--paper);
+}
+
+.text-mute {
+    color: var(--mute);
+}
+
+.border-line {
+    border-color: var(--line);
+}
+
+.btn-ink {
+    background: var(--ink);
+    color: var(--paper);
+}
+.btn-ink:hover {
+    background: var(--accent);
+}
+
+/* ---------- shared animation: live dot ---------- */
+.live-dot {
+    animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .35;
+    }
+}
+
+/* ---------- shared input focus ---------- */
+input:focus {
+    outline: none;
+    border-color: var(--ink);
+}
+
+input {
+    transition: border-color .2s ease;
+}
+
+/* ---------- reduce motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .live-dot {
+        animation: none;
+    }
+}

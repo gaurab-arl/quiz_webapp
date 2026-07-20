@@ -1,0 +1,16 @@
+/* ========================================
+   ADMIN.CSS — admin panel specific styles
+   ======================================== */
+
+/* ---------- table row hover ---------- */
+tr.row-hover:hover {
+    background: rgba(11, 11, 12, 0.02);
+}
+
+/* ---------- status indicator dots ---------- */
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    display: inline-block;
+}
