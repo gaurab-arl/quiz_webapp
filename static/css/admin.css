@@ -14,3 +14,46 @@ tr.row-hover:hover {
     border-radius: 9999px;
     display: inline-block;
 }
+
+/* ---------- sidebar nav items ---------- */
+.nav-item {
+    color: #8A8A85;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.nav-item:hover {
+    color: var(--paper);
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-item.active {
+    color: var(--ink);
+    background: var(--paper);
+}
+
+/* ---------- scrollable sidebar ---------- */
+#sidebar {
+    overflow-y: auto;
+    scrollbar-width: none;          /* Firefox */
+}
+#sidebar::-webkit-scrollbar {
+    display: none;                  /* Chrome / Safari */
+}
+
+/* ---------- smooth section transitions ---------- */
+.section-content {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.section-content.hidden {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    display: none;
+}
+
+.section-content:not(.hidden) {
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
+}
