@@ -11,24 +11,6 @@
         });
     }
 
-    // Handle login form submission
-    const form = document.getElementById('loginForm');
-    if (form) {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const email = document.getElementById('user_email').value.trim();
-            const password = document.getElementById('user_password').value.trim();
-
-            if (!email || !password) {
-                alert('Please fill in both email and password.');
-                return;
-            }
-
-            // Simulate login — replace with real auth
-            console.log('Login attempt:', { email, password });
-            alert('Login successful (demo). Welcome back!');
-            // window.location.href = 'dashboard.html';
-        });
-    }
+    // Let the form submit naturally to the Django backend.
+    // No preventDefault() or mock alert.
 })();

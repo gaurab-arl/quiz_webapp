@@ -4,9 +4,6 @@ from django.contrib.auth import logout as auth_logout
 
 
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard' if request.user.role == 'student' else 'admin_dashboard')
-
     if request.method == 'POST':
         email    = request.POST.get('user_email', '').strip()
         password = request.POST.get('user_password', '')

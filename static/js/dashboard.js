@@ -65,4 +65,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (radio.checked) radio.dispatchEvent(new Event('change'));
     });
 
+    // ── Smooth Scroll & Sidebar Active State ──
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            const href = item.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    // Update styling to make it look active
+                    navItems.forEach(n => {
+                        n.classList.remove('active', 'bg-white/10');
+                    });
+                    item.classList.add('active', 'bg-white/10');
+                    
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
+
 });

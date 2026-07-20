@@ -5,9 +5,6 @@ from apps.core.models import User, Student, Admin
 
 
 def signup(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard' if request.user.role == 'student' else 'admin_dashboard')
-
     if request.method == 'POST':
         role            = request.POST.get('role', 'student')          # 'student' | 'institution'
         full_name       = request.POST.get('full_name', '').strip()
