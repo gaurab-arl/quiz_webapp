@@ -1,7 +1,7 @@
 
 
 
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def signup(request):
-    return HttpResponse("Signup Page")
+    return render(request, 'pages/sign.html')

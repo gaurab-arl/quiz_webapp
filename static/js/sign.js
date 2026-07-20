@@ -1,158 +1,221 @@
+// sign.js — signup form behavior for KCC Quiz
+// Handles: role-based field visibility, client-side validation,
+// password show/hide, and submitting to the Django backend.
+
 document.addEventListener('DOMContentLoaded', () => {
-    const nextBtn = document.getElementById('nextBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const submitBtn = document.getElementById('submitBtn');
-    const signupForm = document.getElementById('signupForm');
-    
-    let currentStep = 1;
-    const totalSteps = 4;
+    const form = document.getElementById('signup-form');
+    if (!form) return;
 
-    function updateUI() {
-        // Update Form Steps
-        for (let i = 1; i <= totalSteps; i++) {
-            const stepContent = document.getElementById(`content-step-${i}`);
-            if (i === currentStep) {
-                stepContent.classList.remove('hidden');
-            } else {
-                stepContent.classList.add('hidden');
-            }
-        }
+    const roleInputs = form.querySelectorAll('input[name="role"]');
+    const nameLabel = document.getElementById('name-label');
+    const nameInput = document.getElementById('full_name');
+    const submitBtn = document.getElementById('submit-btn');
+    const submitLabel = document.getElementById('submit-label');
+    const alertBox = document.getElementById('form-alert');
+    const togglePasswordBtn = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
 
-        // Update Stepper Indicators
-        const progressLine = document.getElementById('progress-line');
-        // Calculate width: step 1=0%, step 2=33%, step 3=66%, step 4=100%
-        // But visual alignment depends on the layout.
-        const progressWidths = ['0%', '0%', '40%', '70%', '100%'];
-        progressLine.style.width = progressWidths[currentStep];
+    const NAME_LABEL_BY_ROLE = {
+        student: 'Full name',
+        institution: 'Institution name',
+    };
 
-        for (let i = 1; i <= totalSteps; i++) {
-            const indicator = document.getElementById(`step-indicator-${i}`);
-            const text = document.getElementById(`step-text-${i}`);
-            
-            if (i < currentStep) {
-                // Completed steps
-                indicator.className = 'w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold z-10 transition-all';
-                indicator.innerHTML = '<i class="fa-solid fa-check"></i>';
-                text.className = 'text-[11px] text-indigo-400 font-medium transition-all';
-            } else if (i === currentStep) {
-                // Current step
-                indicator.className = 'w-7 h-7 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs font-bold z-10 shadow-[0_0_10px_rgba(79,70,229,0.5)] transition-all';
-                indicator.innerHTML = i;
-                text.className = 'text-[11px] text-indigo-400 font-medium transition-all';
-            } else {
-                // Upcoming steps
-                indicator.className = 'w-7 h-7 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-xs font-bold z-10 border border-slate-600 transition-all';
-                indicator.innerHTML = i;
-                text.className = 'text-[11px] text-slate-400 transition-all';
-            }
-        }
+    const NAME_PLACEHOLDER_BY_ROLE = {
+        student: 'Gaurab Aryal',
+        institution: 'e.g. Kathmandu Capital College',
+    };
 
-        // Update Buttons
-        if (currentStep === 1) {
-            prevBtn.classList.add('hidden');
-        } else {
-            prevBtn.classList.remove('hidden');
-        }
-
-        if (currentStep === totalSteps) {
-            nextBtn.classList.add('hidden');
-            submitBtn.classList.remove('hidden');
-        } else {
-            nextBtn.classList.remove('hidden');
-            submitBtn.classList.add('hidden');
-        }
+    function currentRole() {
+        const checked = form.querySelector('input[name="role"]:checked');
+        return checked ? checked.value : 'student';
     }
 
-    function validateStep() {
-        const currentContent = document.getElementById(`content-step-${currentStep}`);
-        const inputs = currentContent.querySelectorAll('input[required]');
-        
-        let isValid = true;
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                isValid = false;
-                input.classList.add('border-red-500');
-            } else {
-                input.classList.remove('border-red-500');
-            }
+    function updateFieldsForRole(role) {
+        // Show/hide role-specific field groups
+        form.querySelectorAll('[data-role-field]').forEach((el) => {
+            const forRole = el.getAttribute('data-role-field');
+            const show = forRole === role;
+            el.classList.toggle('hidden', !show);
+            el.querySelectorAll('input, select').forEach((input) => {
+                input.disabled = !show;
+            });
         });
 
-        // Specific validation for step 2 (password)
-        if (currentStep === 2) {
-            const password = document.getElementById('signup-password').value;
-            if (password.length > 0 && password.length < 6) {
-                alert('Password must be at least 6 characters long.');
-                isValid = false;
-            }
-        }
-
-        return isValid;
+        // Swap the "full name" label/placeholder for institution accounts
+        nameLabel.textContent = NAME_LABEL_BY_ROLE[role] || 'Full name';
+        nameInput.placeholder = NAME_PLACEHOLDER_BY_ROLE[role] || '';
     }
 
-    nextBtn.addEventListener('click', () => {
-        if (validateStep() && currentStep < totalSteps) {
-            currentStep++;
-            updateUI();
-        } else if (!validateStep()) {
-            alert('Please fill out all required fields.');
-        }
+    roleInputs.forEach((input) => {
+        input.addEventListener('change', () => updateFieldsForRole(input.value));
     });
+    updateFieldsForRole(currentRole());
 
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 1) {
-            currentStep--;
-            updateUI();
+    // Show / hide password
+    if (togglePasswordBtn && passwordInput) {
+        togglePasswordBtn.addEventListener('click', () => {
+            const isHidden = passwordInput.type === 'password';
+            passwordInput.type = isHidden ? 'text' : 'password';
+            togglePasswordBtn.textContent = isHidden ? 'Hide' : 'Show';
+        });
+    }
+
+    function setFieldError(input, message) {
+        const wrapper = input.closest('div');
+        const errorEl = wrapper ? wrapper.querySelector('.field-error') : null;
+        if (!errorEl) return;
+        if (message) {
+            errorEl.textContent = message;
+            errorEl.classList.remove('hidden');
+            input.classList.add('border-red-500');
+        } else {
+            errorEl.textContent = '';
+            errorEl.classList.add('hidden');
+            input.classList.remove('border-red-500');
         }
-    });
+    }
 
-    signupForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (!validateStep()) return;
+    function showAlert(message, type = 'error') {
+        if (!alertBox) return;
+        alertBox.textContent = message;
+        alertBox.classList.remove('hidden', 'border-red-300', 'bg-red-50', 'text-red-700',
+            'border-green-300', 'bg-green-50', 'text-green-700');
+        if (type === 'error') {
+            alertBox.classList.add('border-red-300', 'bg-red-50', 'text-red-700');
+        } else {
+            alertBox.classList.add('border-green-300', 'bg-green-50', 'text-green-700');
+        }
+    }
 
-        // Gather data
-        const fullName = document.getElementById('fullName').value.trim();
-        const email = document.getElementById('signup-email').value.trim();
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('signup-password').value.trim();
-        const avatar = document.querySelector('input[name="avatar"]:checked').value;
+    function hideAlert() {
+        if (!alertBox) return;
+        alertBox.classList.add('hidden');
+    }
 
-        // Fetch existing users or initialize array
-        let users = [];
-        const existingData = localStorage.getItem('user_add');
-        if (existingData) {
-            try {
-                users = JSON.parse(existingData);
-                if (!Array.isArray(users)) users = [];
-            } catch(e) {
-                users = [];
+    function isValidEmail(value) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function isValidPhone(value) {
+        if (!value) return true; // phone is optional
+        return /^(98|97)\d{8}$/.test(value.replace(/\s|-/g, ''));
+    }
+
+    function validateForm() {
+        let valid = true;
+        const role = currentRole();
+
+        const nameVal = nameInput.value.trim();
+        if (!nameVal) {
+            setFieldError(nameInput, role === 'institution' ? 'Institution name is required' : 'Full name is required');
+            valid = false;
+        } else {
+            setFieldError(nameInput, '');
+        }
+
+        const emailInput = document.getElementById('email');
+        const emailVal = emailInput.value.trim();
+        if (!emailVal) {
+            setFieldError(emailInput, 'Email is required');
+            valid = false;
+        } else if (!isValidEmail(emailVal)) {
+            setFieldError(emailInput, 'Enter a valid email address');
+            valid = false;
+        } else {
+            setFieldError(emailInput, '');
+        }
+
+        const phoneInput = document.getElementById('phone');
+        const phoneVal = phoneInput.value.trim();
+        if (!isValidPhone(phoneVal)) {
+            setFieldError(phoneInput, 'Enter a valid Nepali phone number');
+            valid = false;
+        } else {
+            setFieldError(phoneInput, '');
+        }
+
+        const pwInput = document.getElementById('password');
+        const pwVal = pwInput.value;
+        if (pwVal.length < 8) {
+            setFieldError(pwInput, 'Password must be at least 8 characters');
+            valid = false;
+        } else {
+            setFieldError(pwInput, '');
+        }
+
+        const confirmInput = document.getElementById('confirm_password');
+        if (confirmInput.value !== pwVal || !confirmInput.value) {
+            setFieldError(confirmInput, 'Passwords do not match');
+            valid = false;
+        } else {
+            setFieldError(confirmInput, '');
+        }
+
+        const termsCheckbox = document.getElementById('agree_terms');
+        const termsError = document.getElementById('terms-error');
+        if (!termsCheckbox.checked) {
+            termsError.textContent = 'You must agree to the Terms and Privacy Policy';
+            termsError.classList.remove('hidden');
+            valid = false;
+        } else {
+            termsError.classList.add('hidden');
+        }
+
+        return valid;
+    }
+
+    function getCsrfToken() {
+        const input = form.querySelector('input[name="csrfmiddlewaretoken"]');
+        return input ? input.value : '';
+    }
+
+    async function submitForm() {
+        const role = currentRole();
+        const formData = new FormData(form);
+        const payload = { role };
+        formData.forEach((value, key) => {
+            if (key === 'csrfmiddlewaretoken' || key === 'role') return;
+            payload[key] = value;
+        });
+
+        submitBtn.disabled = true;
+        submitLabel.textContent = 'Creating account…';
+
+        try {
+            const response = await fetch('/signup/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCsrfToken(),
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await response.json().catch(() => ({}));
+
+            if (!response.ok) {
+                showAlert(data.message || 'Something went wrong. Please try again.', 'error');
+                submitBtn.disabled = false;
+                submitLabel.textContent = 'Create account →';
+                return;
             }
-        }
 
-        // Check for existing email
-        const userExists = users.some(u => u.email === email);
-        if (userExists) {
-            alert('An account with this email already exists!');
+            showAlert('Account created! Redirecting…', 'success');
+            window.location.href = data.redirect_url || '/login/';
+        } catch (err) {
+            showAlert('Could not reach the server. Check your connection and try again.', 'error');
+            submitBtn.disabled = false;
+            submitLabel.textContent = 'Create account →';
+        }
+    }
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        hideAlert();
+        if (!validateForm()) {
+            showAlert('Please fix the highlighted fields.', 'error');
             return;
         }
-
-        // Add new user
-        const newUser = {
-            fullName,
-            email,
-            username,
-            password,
-            avatar
-        };
-
-        users.push(newUser);
-        
-        // Save to localStorage as requested: const user_add = localStorage.getItem("user_add");
-        localStorage.setItem('user_add', JSON.stringify(users));
-
-        alert('Account created successfully! Redirecting to login...');
-        window.location.href = 'login.html';
+        submitForm();
     });
-
-    // Initialize UI
-    updateUI();
 });

@@ -5,279 +5,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard — KCC Quiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/root.css' %}">
-    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
-</head>
-
-<body class="min-h-screen">
-<div class="lg:grid lg:grid-cols-[260px_1fr] min-h-screen">
-
-    <!-- SIDEBAR -->
-    <aside class="hidden lg:flex flex-col justify-between bg-[var(--ink)] text-[var(--paper)] px-6 py-8 sticky top-0 h-screen">
-        <div>
-            <div class="font-display font-bold text-xl tracking-tight mb-10">KCC Quiz</div>
-            <nav class="space-y-1">
-                <a href="#" class="nav-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
-                    Dashboard
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-                    Quizzes
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 4v5"/></svg>
-                    Question bank
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-                    Students
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
-                    Analytics
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09A1.65 1.65 0 0015 4.6a1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-                    Settings
-                </a>
-            </nav>
-        </div>
-
-        <div class="flex items-center gap-3 px-2">
-            <div class="w-9 h-9 rounded-full bg-[var(--accent)] flex items-center justify-center font-display font-semibold text-sm shrink-0">MB</div>
-            <div class="min-w-0">
-                <p class="text-sm font-medium truncate">Mira Bhattarai</p>
-                <p class="text-xs text-[#8A8A85] truncate">Teacher</p>
-            </div>
-            <a href="login.html" class="ml-auto text-[#8A8A85] hover:text-[var(--paper)] transition-colors" title="Log out">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-            </a>
-        </div>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="px-6 sm:px-10 py-8 sm:py-10 max-w-7xl w-full">
-
-        <!-- mobile top bar -->
-        <div class="lg:hidden flex items-center justify-between mb-8">
-            <div class="font-display font-bold text-lg tracking-tight">KCC Quiz</div>
-            <div class="w-9 h-9 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center font-display font-semibold text-sm">MB</div>
-        </div>
-
-        <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
-            <div>
-                <p class="font-display text-xs tracking-[0.25em] text-[var(--mute)] mb-2">CLASS 10 · SECTION B</p>
-                <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Good evening, Mira.</h1>
-            </div>
-            <a href="#" class="font-display font-semibold text-sm px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors">
-                + Create quiz
-            </a>
-        </div>
-
-        <!-- stat cards -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Total students</p>
-                <p class="font-display font-bold text-3xl tracking-tight">142</p>
-            </div>
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Active quizzes</p>
-                <p class="font-display font-bold text-3xl tracking-tight">18</p>
-            </div>
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Avg. class score</p>
-                <p class="font-display font-bold text-3xl tracking-tight" style="color:var(--accent)">76%</p>
-            </div>
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Completion rate</p>
-                <p class="font-display font-bold text-3xl tracking-tight">91%</p>
-            </div>
-        </div>
-
-        <div class="grid lg:grid-cols-[1.7fr_1fr] gap-6">
-            <div class="space-y-6">
-
-                <!-- quiz management -->
-                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="font-display font-bold text-2xl tracking-tight">Your quizzes</h2>
-                        <a href="#" class="text-sm text-[var(--mute)] hover:text-[var(--ink)] transition-colors">View all →</a>
-                    </div>
-
-                    <div class="overflow-x-auto -mx-2">
-                        <table class="w-full text-sm min-w-[560px]">
-                            <thead>
-                                <tr class="text-left text-xs text-[var(--mute)] border-b border-[var(--line)]">
-                                    <th class="font-medium py-3 px-2">Quiz</th>
-                                    <th class="font-medium py-3 px-2">Status</th>
-                                    <th class="font-medium py-3 px-2">Attempts</th>
-                                    <th class="font-medium py-3 px-2">Avg. score</th>
-                                    <th class="font-medium py-3 px-2"></th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-[var(--line)]">
-                                <tr class="row-hover">
-                                    <td class="py-4 px-2">
-                                        <p class="font-medium">Bonding & Structure</p>
-                                        <p class="text-xs text-[var(--mute)] mt-0.5">Chemistry · 20 questions</p>
-                                    </td>
-                                    <td class="py-4 px-2">
-                                        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full" style="background:var(--good-soft);color:var(--good)">
-                                            <span class="status-dot" style="background:var(--good)"></span>Published
-                                        </span>
-                                    </td>
-                                    <td class="py-4 px-2">64</td>
-                                    <td class="py-4 px-2 font-display font-semibold">81%</td>
-                                    <td class="py-4 px-2 text-right"><a href="#" class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                </tr>
-                                <tr class="row-hover">
-                                    <td class="py-4 px-2">
-                                        <p class="font-medium">Calculus Basics</p>
-                                        <p class="text-xs text-[var(--mute)] mt-0.5">Mathematics · 15 questions</p>
-                                    </td>
-                                    <td class="py-4 px-2">
-                                        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full" style="background:var(--good-soft);color:var(--good)">
-                                            <span class="status-dot" style="background:var(--good)"></span>Published
-                                        </span>
-                                    </td>
-                                    <td class="py-4 px-2">58</td>
-                                    <td class="py-4 px-2 font-display font-semibold">74%</td>
-                                    <td class="py-4 px-2 text-right"><a href="#" class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                </tr>
-                                <tr class="row-hover">
-                                    <td class="py-4 px-2">
-                                        <p class="font-medium">Newton's Laws — Review</p>
-                                        <p class="text-xs text-[var(--mute)] mt-0.5">Physics · 25 questions</p>
-                                    </td>
-                                    <td class="py-4 px-2">
-                                        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full" style="background:var(--warn-soft);color:var(--warn)">
-                                            <span class="status-dot" style="background:var(--warn)"></span>Draft
-                                        </span>
-                                    </td>
-                                    <td class="py-4 px-2">—</td>
-                                    <td class="py-4 px-2 font-display font-semibold text-[var(--mute)]">—</td>
-                                    <td class="py-4 px-2 text-right"><a href="#" class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                </tr>
-                                <tr class="row-hover">
-                                    <td class="py-4 px-2">
-                                        <p class="font-medium">Grammar & Comprehension</p>
-                                        <p class="text-xs text-[var(--mute)] mt-0.5">English · 20 questions</p>
-                                    </td>
-                                    <td class="py-4 px-2">
-                                        <span class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full" style="background:var(--good-soft);color:var(--good)">
-                                            <span class="status-dot" style="background:var(--good)"></span>Published
-                                        </span>
-                                    </td>
-                                    <td class="py-4 px-2">71</td>
-                                    <td class="py-4 px-2 font-display font-semibold">88%</td>
-                                    <td class="py-4 px-2 text-right"><a href="#" class="text-[var(--mute)] hover:text-[var(--ink)]">Edit</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- most missed questions -->
-                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
-                    <h2 class="font-display font-bold text-xl tracking-tight mb-1">Most missed questions</h2>
-                    <p class="text-[var(--mute)] text-sm mb-6">Worth revisiting in class — these are tripping students up.</p>
-                    <div class="divide-y divide-[var(--line)]">
-                        <div class="flex items-center justify-between py-4 gap-4">
-                            <div class="min-w-0">
-                                <p class="font-medium truncate">"Which gas is released at the cathode during electrolysis of water?"</p>
-                                <p class="text-xs text-[var(--mute)] mt-1">Chemistry — Bonding & Structure</p>
-                            </div>
-                            <span class="font-display font-semibold shrink-0" style="color:var(--accent)">62% wrong</span>
-                        </div>
-                        <div class="flex items-center justify-between py-4 gap-4">
-                            <div class="min-w-0">
-                                <p class="font-medium truncate">"What is the derivative of sin(x)cos(x)?"</p>
-                                <p class="text-xs text-[var(--mute)] mt-1">Mathematics — Calculus Basics</p>
-                            </div>
-                            <span class="font-display font-semibold shrink-0" style="color:var(--accent)">54% wrong</span>
-                        </div>
-                        <div class="flex items-center justify-between py-4 gap-4">
-                            <div class="min-w-0">
-                                <p class="font-medium truncate">"A 2kg block accelerates at 3m/s² — find the net force."</p>
-                                <p class="text-xs text-[var(--mute)] mt-1">Physics — Newton's Laws</p>
-                            </div>
-                            <span class="font-display font-semibold shrink-0" style="color:var(--accent)">49% wrong</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SIDE COLUMN -->
-            <div class="space-y-6">
-                <div class="border border-[var(--line)] rounded-3xl p-6 bg-white/60">
-                    <h2 class="font-display font-bold text-lg tracking-tight mb-5">Top performers</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <span class="font-display text-sm text-[var(--mute)] w-4">1</span>
-                            <div class="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-xs font-display font-semibold text-white">SP</div>
-                            <span class="text-sm flex-1">Sita Poudel</span>
-                            <span class="text-sm font-display font-semibold">96%</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="font-display text-sm text-[var(--mute)] w-4">2</span>
-                            <div class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">RS</div>
-                            <span class="text-sm flex-1">Rohan Shrestha</span>
-                            <span class="text-sm font-display font-semibold">91%</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="font-display text-sm text-[var(--mute)] w-4">3</span>
-                            <div class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">GA</div>
-                            <span class="text-sm flex-1">Gaurab Aryal</span>
-                            <span class="text-sm font-display font-semibold">82%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-[var(--line)] rounded-3xl p-6 bg-white/60">
-                    <h2 class="font-display font-bold text-lg tracking-tight mb-5">Needs attention</h2>
-                    <p class="text-xs text-[var(--mute)] mb-4">Students scoring below 50% this week.</p>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">PK</div>
-                            <span class="text-sm flex-1">Prakash K.C.</span>
-                            <span class="text-sm font-display font-semibold text-[var(--mute)]">41%</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 rounded-full bg-[var(--line)] flex items-center justify-center text-xs font-display font-semibold">AT</div>
-                            <span class="text-sm flex-1">Anita Tamang</span>
-                            <span class="text-sm font-display font-semibold text-[var(--mute)]">38%</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-[var(--line)] rounded-3xl p-6 bg-[var(--ink)] text-[var(--paper)]">
-                    <h2 class="font-display font-bold text-lg tracking-tight mb-2">Question bank</h2>
-                    <p class="text-sm text-[#8A8A85] mb-5">312 questions across 6 subjects.</p>
-                    <a href="#" class="font-display font-semibold text-sm px-5 py-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors inline-block">
-                        Manage bank →
-                    </a>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
-</body>
-</html>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard — KCC Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -289,571 +16,375 @@
 </head>
 
 <body class="min-h-screen">
-<div class="lg:grid lg:grid-cols-[260px_1fr] min-h-screen">
+    <div class="lg:grid lg:grid-cols-[260px_1fr] min-h-screen">
 
-    <!-- SIDEBAR -->
-    <aside class="hidden lg:flex flex-col justify-between bg-[var(--ink)] text-[var(--paper)] px-6 py-8 sticky top-0 h-screen">
-        <div>
-            <div class="font-display font-bold text-xl tracking-tight mb-10">KCC Quiz</div>
-            <nav class="space-y-1">
-                <a href="#" class="nav-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
-                    Dashboard
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
-                    Subjects
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-                    History
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M5 3h14v6a7 7 0 01-14 0V3z"/></svg>
-                    Leaderboard
-                </a>
-                <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/></svg>
-                    Profile
-                </a>
-            </nav>
-        </div>
-
-        <div class="flex items-center gap-3 px-2">
-            <div class="w-9 h-9 rounded-full bg-[var(--accent)] flex items-center justify-center font-display font-semibold text-sm shrink-0">GA</div>
-            <div class="min-w-0">
-                <p class="text-sm font-medium truncate">Gaurab Aryal</p>
-                <p class="text-xs text-[#8A8A85] truncate">Student</p>
-            </div>
-            <a href="login.html" class="ml-auto text-[#8A8A85] hover:text-[var(--paper)] transition-colors" title="Log out">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
-            </a>
-        </div>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="px-6 sm:px-10 py-8 sm:py-10 max-w-6xl w-full">
-
-        <!-- mobile top bar -->
-        <div class="lg:hidden flex items-center justify-between mb-8">
-            <div class="font-display font-bold text-lg tracking-tight">KCC Quiz</div>
-            <div class="w-9 h-9 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center font-display font-semibold text-sm">GA</div>
-        </div>
-
-        <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
+        <!-- SIDEBAR -->
+        <aside
+            class="hidden lg:flex flex-col justify-between bg-[var(--ink)] text-[var(--paper)] px-6 py-8 sticky top-0 h-screen">
             <div>
-                <p class="font-display text-xs tracking-[0.25em] text-[var(--mute)] mb-2">GOOD EVENING</p>
-                <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Ready to sharpen up, Gaurab?</h1>
-            </div>
-            <span class="font-display text-sm font-semibold px-4 py-2 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">🔥 6-day streak</span>
-        </div>
-
-        <!-- stat cards -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Quizzes taken</p>
-                <p class="font-display font-bold text-3xl tracking-tight">37</p>
-            </div>
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Average score</p>
-                <p class="font-display font-bold text-3xl tracking-tight" style="color:var(--accent)">82%</p>
-            </div>
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Class rank</p>
-                <p class="font-display font-bold text-3xl tracking-tight">#4</p>
-            </div>
-            <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
-                <p class="text-xs text-[var(--mute)] mb-2">Best streak</p>
-                <p class="font-display font-bold text-3xl tracking-tight">11</p>
-            </div>
-        </div>
-
-        <div class="grid lg:grid-cols-[1.6fr_1fr] gap-6">
-            <div class="space-y-6">
-
-                <!-- QUIZ LAUNCHER — the important part -->
-                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
-                    <h2 class="font-display font-bold text-2xl tracking-tight mb-1">Start a quiz</h2>
-                    <p class="text-[var(--mute)] text-sm mb-7">Choose a subject test, or take a mixed test across everything.</p>
-
-                    <!-- test type segmented control -->
-                    <div class="mb-7">
-                        <p class="text-sm font-medium mb-3">Test type</p>
-                        <div class="inline-flex p-1 rounded-full border border-[var(--line)] bg-white">
-                            <input type="radio" name="test-type" id="type-single" class="seg-input hidden" checked>
-                            <label for="type-single" class="seg-label font-display text-sm font-semibold px-5 py-2.5 rounded-full cursor-pointer">Single subject</label>
-                            <input type="radio" name="test-type" id="type-mixed" class="seg-input hidden">
-                            <label for="type-mixed" class="seg-label font-display text-sm font-semibold px-5 py-2.5 rounded-full cursor-pointer">Aggregate (mixed)</label>
-                        </div>
-                    </div>
-
-                    <!-- subject picker, hidden in mixed mode -->
-                    <div id="subject-picker" class="mb-7">
-                        <p class="text-sm font-medium mb-3">Subject</p>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                            <div>
-                                <input type="radio" name="subject" id="subj-math" class="chip-input hidden" checked>
-                                <label for="subj-math" class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    Mathematics <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="subject" id="subj-phy" class="chip-input hidden">
-                                <label for="subj-phy" class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    Physics <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="subject" id="subj-cs" class="chip-input hidden">
-                                <label for="subj-cs" class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    Comp. Science <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="subject" id="subj-chem" class="chip-input hidden">
-                                <label for="subj-chem" class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    Chemistry <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="subject" id="subj-eng" class="chip-input hidden">
-                                <label for="subj-eng" class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    English <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </label>
-                            </div>
-                            <div>
-                                <input type="radio" name="subject" id="subj-hist" class="chip-input hidden">
-                                <label for="subj-hist" class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    History <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- number of questions -->
-                    <div class="mb-7">
-                        <p class="text-sm font-medium mb-3">Number of questions</p>
-                        <div class="flex flex-wrap gap-2.5">
-                            <input type="radio" name="qcount" id="q10" class="chip-input hidden">
-                            <label for="q10" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">10</label>
-
-                            <input type="radio" name="qcount" id="q15" class="chip-input hidden" checked>
-                            <label for="q15" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">15</label>
-
-                            <input type="radio" name="qcount" id="q20" class="chip-input hidden">
-                            <label for="q20" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">20</label>
-
-                            <input type="radio" name="qcount" id="q30" class="chip-input hidden">
-                            <label for="q30" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">30</label>
-
-                            <input type="radio" name="qcount" id="q50" class="chip-input hidden">
-                            <label for="q50" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">50</label>
-                        </div>
-                    </div>
-
-                    <!-- difficulty -->
-                    <div class="mb-8">
-                        <p class="text-sm font-medium mb-3">Difficulty</p>
-                        <div class="flex flex-wrap gap-2.5">
-                            <input type="radio" name="difficulty" id="d-easy" class="chip-input hidden">
-                            <label for="d-easy" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Easy</label>
-
-                            <input type="radio" name="difficulty" id="d-med" class="chip-input hidden" checked>
-                            <label for="d-med" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Medium</label>
-
-                            <input type="radio" name="difficulty" id="d-hard" class="chip-input hidden">
-                            <label for="d-hard" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Hard</label>
-
-                            <input type="radio" name="difficulty" id="d-mix" class="chip-input hidden">
-                            <label for="d-mix" class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Mixed</label>
-                        </div>
-                    </div>
-
-                    <button class="w-full sm:w-auto font-display font-semibold text-base px-9 py-4 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors">
-                        Start quiz →
-                    </button>
-                </div>
-
-                <!-- recent activity -->
-                <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
-                    <div class="flex items-center justify-between mb-5">
-                        <h2 class="font-display font-bold text-xl tracking-tight">Recent activity</h2>
-                        <a href="#" class="text-sm text-[var(--mute)] hover:text-[var(--ink)] transition-colors">View all →</a>
-                    </div>
-                    <div class="divide-y divide-[var(--line)]">
-                        <div class="flex items-center justify-between py-4">
-                            <div>
-                                <p class="font-medium">Chemistry — Bonding & Structure</p>
-                                <p class="text-xs text-[var(--mute)] mt-1">20 questions · Today, 6:40 PM</p>
-                            </div>
-                            <span class="font-display font-semibold" style="color:var(--accent)">17/20</span>
-                        </div>
-                        <div class="flex items-center justify-between py-4">
-                            <div>
-                                <p class="font-medium">Aggregate test</p>
-                                <p class="text-xs text-[var(--mute)] mt-1">30 questions · Yesterday, 4:12 PM</p>
-                            </div>
-                            <span class="font-display font-semibold">21/30</span>
-                        </div>
-                        <div class="flex items-center justify-between py-4">
-                            <div>
-                                <p class="font-medium">Mathematics — Calculus Basics</p>
-                                <p class="text-xs text-[var(--mute)] mt-1">15 questions · 2 days ago</p>
-                            </div>
-                            <span class="font-display font-semibold">12/15</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SIDE COLUMN -->
-            <div class="space-y-6">
-                <div class="border border-[var(--line)] rounded-3xl p-6 bg-white/60">
-                    <h2 class="font-display font-bold text-lg tracking-tight mb-5">Subject mastery</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <div class="flex justify-between text-sm mb-1.5"><span>Mathematics</span><span class="text-[var(--mute)]">88%</span></div>
-                            <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:88%;background:var(--accent)"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1.5"><span>Physics</span><span class="text-[var(--mute)]">71%</span></div>
-                            <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:71%;background:var(--accent)"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1.5"><span>Chemistry</span><span class="text-[var(--mute)]">64%</span></div>
-                            <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:64%;background:var(--accent)"></div></div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-sm mb-1.5"><span>Comp. Science</span><span class="text-[var(--mute)]">93%</span></div>
-                            <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden"><div class="bar-fill h-full rounded-full" style="width:93%;background:var(--accent)"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border border-[var(--line)] rounded-3xl p-6 bg-[var(--ink)] text-[var(--paper)]">
-                    <h2 class="font-display font-bold text-lg tracking-tight mb-5">Class leaderboard</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-3">
-                            <span class="font-display text-sm text-[#8A8A85] w-4">1</span>
-                            <div class="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-xs font-display font-semibold">SP</div>
-                            <span class="text-sm flex-1">Sita Poudel</span>
-                            <span class="text-sm font-display font-semibold">96%</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <span class="font-display text-sm text-[#8A8A85] w-4">2</span>
-                            <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-display font-semibold">RS</div>
-                            <span class="text-sm flex-1">Rohan Shrestha</span>
-                            <span class="text-sm font-display font-semibold">91%</span>
-                        </div>
-                        <div class="flex items-center gap-3 rounded-xl bg-white/[0.06] -mx-2 px-2 py-1.5">
-                            <span class="font-display text-sm text-[#8A8A85] w-4">4</span>
-                            <div class="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-xs font-display font-semibold">GA</div>
-                            <span class="text-sm flex-1">You</span>
-                            <span class="text-sm font-display font-semibold">82%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
-<script>
-    const typeMixed = document.getElementById('type-mixed');
-    const typeSingle = document.getElementById('type-single');
-    const subjectPicker = document.getElementById('subject-picker');
-
-    function syncSubjectVisibility(){
-        subjectPicker.style.display = typeMixed.checked ? 'none' : 'block';
-    }
-    typeMixed.addEventListener('change', syncSubjectVisibility);
-    typeSingle.addEventListener('change', syncSubjectVisibility);
-    syncSubjectVisibility();
-</script>
-
-</body>
-</html>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log in — KCC Quiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet" />
-    <!-- separate css file: login.css (but we keep minimal style here for clarity) -->
-    <link rel="stylesheet" href="{% static 'css/root.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-</head>
-
-<body class="min-h-screen">
-    <div class="min-h-screen grid lg:grid-cols-2">
-
-        <!-- ===== LEFT: dark brand panel ===== -->
-        <div class="hidden lg:flex flex-col justify-between bg-[var(--ink)] text-[var(--paper)] px-12 py-10">
-            <a href="#" class="font-display font-bold text-xl tracking-tight">KCC <span
-                    class="text-[var(--accent)]">Quiz</span></a>
-
-            <div>
-                <p class="font-display text-xs tracking-[0.3em] text-[#8A8A85] mb-6">WELCOME BACK</p>
-                <h1 class="font-display font-bold text-5xl leading-[0.95] tracking-tight max-w-md">
-                    Pick up right where you left off.
-                </h1>
-            </div>
-
-            <!-- live quiz teaser (matches home page style) -->
-
-        </div>
-
-        <!-- ===== RIGHT: login form ===== -->
-        <div class="flex flex-col justify-center px-6 sm:px-16 py-16 bg-[var(--paper)]">
-            <div class="max-w-sm w-full mx-auto">
-
-                <!-- mobile brand (hidden on large) -->
-                <a href="#" class="lg:hidden font-display font-bold text-xl tracking-tight mb-10 block">KCC Quiz</a>
-
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-2">Log in</h2>
-                <p class="text-[var(--mute)] mb-10">
-                    New here?
-                    <a href="/pages/sign.html"
-                        class="text-[var(--ink)] font-semibold underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]">
-                        Create an account →
+                <div class="font-display font-bold text-xl tracking-tight mb-10">KCC Quiz</div>
+                <nav class="space-y-1">
+                    <a href="#"
+                        class="nav-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="3" y="3" width="7" height="9" rx="1.5" />
+                            <rect x="14" y="3" width="7" height="5" rx="1.5" />
+                            <rect x="14" y="12" width="7" height="9" rx="1.5" />
+                            <rect x="3" y="16" width="7" height="5" rx="1.5" />
+                        </svg>
+                        Dashboard
                     </a>
-                </p>
+                    <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                        </svg>
+                        Subjects
+                    </a>
+                    <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="9" />
+                            <path d="M12 7v5l3 3" />
+                        </svg>
+                        History
+                    </a>
+                    <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M8 21h8M12 17v4M5 3h14v6a7 7 0 01-14 0V3z" />
+                        </svg>
+                        Leaderboard
+                    </a>
+                    <a href="#" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7" />
+                        </svg>
+                        Profile
+                    </a>
+                </nav>
+            </div>
 
-                <form class="space-y-5" id="loginForm">
-                    <!-- email -->
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Email</label>
-                        <input type="email" id="user_email" placeholder="you@school.edu"
-                            class="w-full px-4 py-3.5 rounded-xl border border-[var(--line)] bg-white text-base placeholder:text-[var(--mute)]" />
-                    </div>
-
-                    <!-- password -->
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Password</label>
-                        </div>
-                        <div class="relative">
-                            <input type="password" id="user_password" placeholder="••••••••"
-                                class="w-full px-4 py-3.5 rounded-xl border border-[var(--line)] bg-white text-base placeholder:text-[var(--mute)] pr-12" />
-                            <button type="button" id="togglePassword"
-                                class="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--mute)] hover:text-[var(--ink)] transition-colors">
-                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                    <circle cx="12" cy="12" r="3" />
-                                </svg>
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <!-- remember me -->
-                    <label class="flex justify-between items-center gap-2.5 text-sm text-[var(--mute)] pt-1">
-                        <div>
-                            <input type="checkbox" class="w-4 h-4 rounded border-[var(--line)] accent-[var(--accent)]" />
-                            <span>Keep me logged in </span>
-                        </div>
-
-                        <a href="#"
-                            class="text-sm text-[var(--mute)] hover:text-[var(--ink)] transition-colors">Forgot?</a>
-
-                    </label>
-
-                    <button type="submit"
-                        class="w-full font-display font-semibold text-base px-8 py-4 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors mt-2">
-                        Log in →
-                    </button>
-                </form>
-
-                <!-- divider -->
-                <div class="flex items-center gap-4 my-8">
-                    <span class="h-px flex-1 bg-[var(--line)]"></span>
-                    <span class="text-xs text-[var(--mute)]">OR</span>
-                    <span class="h-px flex-1 bg-[var(--line)]"></span>
+            <div class="flex items-center gap-3 px-2">
+                <div
+                    class="w-9 h-9 rounded-full bg-[var(--accent)] flex items-center justify-center font-display font-semibold text-sm shrink-0">
+                    GA</div>
+                <div class="min-w-0">
+                    <p class="text-sm font-medium truncate">Gaurab Aryal</p>
+                    <p class="text-xs text-[#8A8A85] truncate">Student</p>
                 </div>
-
-                <!-- google button -->
-                <button id="googleBtn"
-                    class="w-full flex items-center justify-center gap-3 font-display font-semibold text-base px-8 py-4 rounded-full border border-[var(--line)] hover:border-[var(--ink)] transition-colors">
-                    <svg width="18" height="18" viewBox="0 0 24 24">
-                        <path fill="#4285F4"
-                            d="M23.5 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.88c2.27-2.09 3.55-5.17 3.55-8.82z" />
-                        <path fill="#34A853"
-                            d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.75-2.1-6.69-4.92H1.3v3.09C3.26 21.3 7.31 24 12 24z" />
-                        <path fill="#FBBC05"
-                            d="M5.31 14.33c-.24-.72-.38-1.49-.38-2.33s.14-1.61.38-2.33V6.58H1.3A11.98 11.98 0 000 12c0 1.93.46 3.76 1.3 5.42l4.01-3.09z" />
-                        <path fill="#EA4335"
-                            d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.3 6.58l4.01 3.09C6.25 6.85 8.89 4.75 12 4.75z" />
+                <a href="login.html" class="ml-auto text-[#8A8A85] hover:text-[var(--paper)] transition-colors"
+                    title="Log out">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <path d="M16 17l5-5-5-5" />
+                        <path d="M21 12H9" />
                     </svg>
-                    Continue with Google
-                </button>
-
-                <p class="text-xs text-[var(--mute)] text-center mt-8 leading-relaxed">
-                    By continuing, you agree to KCC Quiz's
-                    <a href="#" class="underline hover:text-[var(--ink)]">Terms</a> and
-                    <a href="#" class="underline hover:text-[var(--ink)]">Privacy Policy</a>.
-                </p>
+                </a>
             </div>
-        </div>
-    </div>
+        </aside>
 
-    <!-- ===== separate JS file: login.js ===== -->
-    <script>
-        // ----- login.js functionality -----
-        (function () {
-            // toggle password visibility
-            const toggleBtn = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('user_password');
-            if (toggleBtn && passwordInput) {
-                toggleBtn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordInput.setAttribute('type', type);
-                });
-            }
+        <!-- MAIN -->
+        <main class="px-6 sm:px-10 py-8 sm:py-10 max-w-6xl w-full">
 
-            // login form handler
-            const form = document.getElementById('loginForm');
-            if (form) {
-                form.addEventListener('submit', function (e) {
-                    e.preventDefault();
-                    const email = document.getElementById('user_email').value.trim();
-                    const pass = document.getElementById('user_password').value.trim();
-                    if (!email || !pass) {
-                        alert('Please fill in both email and password.');
-                        return;
-                    }
-                    // demo: log and alert
-                    console.log('[KCC Quiz] login attempt', { email, password: pass });
-                    alert('✅ Logged in (demo). Welcome back!');
-                    // window.location.href = 'dashboard.html';
-                });
-            }
-
-            // google button (demo)
-            const googleBtn = document.getElementById('googleBtn');
-            if (googleBtn) {
-                googleBtn.addEventListener('click', function () {
-                    alert('🌐 Google sign-in (demo)');
-                });
-            }
-        })();
-    </script>
-</body>
-
-</html>
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign up — KCC Quiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/root.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sign.css' %}">
-</head>
-
-<body class="min-h-screen">
-    <div class="min-h-screen grid lg:grid-cols-2">
-
-        <!-- LEFT: dark brand panel -->
-        <div class="hidden lg:flex flex-col justify-between bg-[var(--ink)] text-[var(--paper)] px-12 py-10">
-            <a href="#" class="font-display font-bold text-xl tracking-tight">KCC Quiz</a>
-
-            <div>
-                <p class="font-display text-xs tracking-[0.3em] text-[#8A8A85] mb-6">JOIN FOR FREE</p>
-                <h1 class="font-display font-bold text-5xl leading-[0.95] tracking-tight max-w-md">
-                    Quizzes that keep students <em class="italic font-normal" style="color:var(--accent)">sharp.</em>
-                </h1>
+            <!-- mobile top bar -->
+            <div class="lg:hidden flex items-center justify-between mb-8">
+                <div class="font-display font-bold text-lg tracking-tight">KCC Quiz</div>
+                <div
+                    class="w-9 h-9 rounded-full bg-[var(--ink)] text-[var(--paper)] flex items-center justify-center font-display font-semibold text-sm">
+                    GA</div>
             </div>
 
-           
-        </div>
+            <div class="flex items-center justify-between mb-10 flex-wrap gap-4">
+                <div>
+                    <p class="font-display text-xs tracking-[0.25em] text-[var(--mute)] mb-2">GOOD EVENING</p>
+                    <h1 class="font-display font-bold text-3xl sm:text-4xl tracking-tight">Ready to sharpen up, Gaurab?
+                    </h1>
+                </div>
+                <span
+                    class="font-display text-sm font-semibold px-4 py-2 rounded-full bg-[var(--accent-soft)] text-[var(--accent)]">🔥
+                    6-day streak</span>
+            </div>
 
-        <!-- RIGHT: form -->
-        <div class="flex flex-col justify-center px-6 sm:px-16 py-16">
-            <div class="max-w-sm w-full mx-auto">
-                <a href="#" class="lg:hidden font-display font-bold text-xl tracking-tight mb-10 block">KCC Quiz</a>
+            <!-- stat cards -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
+                    <p class="text-xs text-[var(--mute)] mb-2">Quizzes taken</p>
+                    <p class="font-display font-bold text-3xl tracking-tight">37</p>
+                </div>
+                <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
+                    <p class="text-xs text-[var(--mute)] mb-2">Average score</p>
+                    <p class="font-display font-bold text-3xl tracking-tight" style="color:var(--accent)">82%</p>
+                </div>
+                <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
+                    <p class="text-xs text-[var(--mute)] mb-2">Class rank</p>
+                    <p class="font-display font-bold text-3xl tracking-tight">#4</p>
+                </div>
+                <div class="border border-[var(--line)] rounded-2xl p-5 bg-white/50">
+                    <p class="text-xs text-[var(--mute)] mb-2">Best streak</p>
+                    <p class="font-display font-bold text-3xl tracking-tight">11</p>
+                </div>
+            </div>
 
-                <h2 class="font-display font-bold text-3xl sm:text-4xl tracking-tight mb-2">Create your account</h2>
-                <p class="text-[var(--mute)] mb-8">Already have one? <a href="login.html" class="text-[var(--ink)] font-semibold underline underline-offset-4 decoration-[var(--line)] hover:decoration-[var(--accent)]">Log in →</a></p>
+            <div class="grid lg:grid-cols-[1.6fr_1fr] gap-6">
+                <div class="space-y-6">
 
-                <form class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">I am a</label>
-                        <div class="grid grid-cols-2 gap-3">
+                    <!-- QUIZ LAUNCHER — the important part -->
+                    <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
+                        <h2 class="font-display font-bold text-2xl tracking-tight mb-1">Start a quiz</h2>
+                        <p class="text-[var(--mute)] text-sm mb-7">Choose a subject test, or take a mixed test across
+                            everything.</p>
+
+                        <!-- test type segmented control -->
+                        <div class="mb-7">
+                            <p class="text-sm font-medium mb-3">Test type</p>
+                            <div class="inline-flex p-1 rounded-full border border-[var(--line)] bg-white">
+                                <input type="radio" name="test-type" id="type-single" class="seg-input hidden" checked>
+                                <label for="type-single"
+                                    class="seg-label font-display text-sm font-semibold px-5 py-2.5 rounded-full cursor-pointer">Single
+                                    subject</label>
+                                <input type="radio" name="test-type" id="type-mixed" class="seg-input hidden">
+                                <label for="type-mixed"
+                                    class="seg-label font-display text-sm font-semibold px-5 py-2.5 rounded-full cursor-pointer">Aggregate
+                                    (mixed)</label>
+                            </div>
+                        </div>
+
+                        <!-- subject picker, hidden in mixed mode -->
+                        <div id="subject-picker" class="mb-7">
+                            <p class="text-sm font-medium mb-3">Subject</p>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                                <div>
+                                    <input type="radio" name="subject" id="subj-math" class="chip-input hidden" checked>
+                                    <label for="subj-math"
+                                        class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
+                                        Mathematics <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="3">
+                                            <path d="M20 6L9 17l-5-5" />
+                                        </svg>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="subject" id="subj-phy" class="chip-input hidden">
+                                    <label for="subj-phy"
+                                        class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
+                                        Physics <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="3">
+                                            <path d="M20 6L9 17l-5-5" />
+                                        </svg>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="subject" id="subj-cs" class="chip-input hidden">
+                                    <label for="subj-cs"
+                                        class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
+                                        Comp. Science <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="3">
+                                            <path d="M20 6L9 17l-5-5" />
+                                        </svg>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="subject" id="subj-chem" class="chip-input hidden">
+                                    <label for="subj-chem"
+                                        class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
+                                        Chemistry <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="3">
+                                            <path d="M20 6L9 17l-5-5" />
+                                        </svg>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="subject" id="subj-eng" class="chip-input hidden">
+                                    <label for="subj-eng"
+                                        class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
+                                        English <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="3">
+                                            <path d="M20 6L9 17l-5-5" />
+                                        </svg>
+                                    </label>
+                                </div>
+                                <div>
+                                    <input type="radio" name="subject" id="subj-hist" class="chip-input hidden">
+                                    <label for="subj-hist"
+                                        class="chip-label flex items-center justify-between gap-2 text-sm font-medium px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
+                                        History <svg class="chip-check" width="14" height="14" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="3">
+                                            <path d="M20 6L9 17l-5-5" />
+                                        </svg>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- number of questions -->
+                        <div class="mb-7">
+                            <p class="text-sm font-medium mb-3">Number of questions</p>
+                            <div class="flex flex-wrap gap-2.5">
+                                <input type="radio" name="qcount" id="q10" class="chip-input hidden">
+                                <label for="q10"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">10</label>
+
+                                <input type="radio" name="qcount" id="q15" class="chip-input hidden" checked>
+                                <label for="q15"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">15</label>
+
+                                <input type="radio" name="qcount" id="q20" class="chip-input hidden">
+                                <label for="q20"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">20</label>
+
+                                <input type="radio" name="qcount" id="q30" class="chip-input hidden">
+                                <label for="q30"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">30</label>
+
+                                <input type="radio" name="qcount" id="q50" class="chip-input hidden">
+                                <label for="q50"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">50</label>
+                            </div>
+                        </div>
+
+                        <!-- difficulty -->
+                        <div class="mb-8">
+                            <p class="text-sm font-medium mb-3">Difficulty</p>
+                            <div class="flex flex-wrap gap-2.5">
+                                <input type="radio" name="difficulty" id="d-easy" class="chip-input hidden">
+                                <label for="d-easy"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Easy</label>
+
+                                <input type="radio" name="difficulty" id="d-med" class="chip-input hidden" checked>
+                                <label for="d-med"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Medium</label>
+
+                                <input type="radio" name="difficulty" id="d-hard" class="chip-input hidden">
+                                <label for="d-hard"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Hard</label>
+
+                                <input type="radio" name="difficulty" id="d-mix" class="chip-input hidden">
+                                <label for="d-mix"
+                                    class="chip-label font-display text-sm font-semibold px-5 py-2.5 rounded-full border border-[var(--line)] cursor-pointer">Mixed</label>
+                            </div>
+                        </div>
+
+                        <button
+                            class="w-full sm:w-auto font-display font-semibold text-base px-9 py-4 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors">
+                            Start quiz →
+                        </button>
+                    </div>
+
+                    <!-- recent activity -->
+                    <div class="border border-[var(--line)] rounded-3xl p-6 sm:p-8 bg-white/60">
+                        <div class="flex items-center justify-between mb-5">
+                            <h2 class="font-display font-bold text-xl tracking-tight">Recent activity</h2>
+                            <a href="#"
+                                class="text-sm text-[var(--mute)] hover:text-[var(--ink)] transition-colors">View all
+                                →</a>
+                        </div>
+                        <div class="divide-y divide-[var(--line)]">
+                            <div class="flex items-center justify-between py-4">
+                                <div>
+                                    <p class="font-medium">Chemistry — Bonding & Structure</p>
+                                    <p class="text-xs text-[var(--mute)] mt-1">20 questions · Today, 6:40 PM</p>
+                                </div>
+                                <span class="font-display font-semibold" style="color:var(--accent)">17/20</span>
+                            </div>
+                            <div class="flex items-center justify-between py-4">
+                                <div>
+                                    <p class="font-medium">Aggregate test</p>
+                                    <p class="text-xs text-[var(--mute)] mt-1">30 questions · Yesterday, 4:12 PM</p>
+                                </div>
+                                <span class="font-display font-semibold">21/30</span>
+                            </div>
+                            <div class="flex items-center justify-between py-4">
+                                <div>
+                                    <p class="font-medium">Mathematics — Calculus Basics</p>
+                                    <p class="text-xs text-[var(--mute)] mt-1">15 questions · 2 days ago</p>
+                                </div>
+                                <span class="font-display font-semibold">12/15</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SIDE COLUMN -->
+                <div class="space-y-6">
+                    <div class="border border-[var(--line)] rounded-3xl p-6 bg-white/60">
+                        <h2 class="font-display font-bold text-lg tracking-tight mb-5">Subject mastery</h2>
+                        <div class="space-y-4">
                             <div>
-                                <input type="radio" name="role" id="role-student" class="role-input hidden" checked />
-                                <label for="role-student"
-                                    class="role-label block text-center font-display font-semibold text-sm px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    Student
-                                </label>
+                                <div class="flex justify-between text-sm mb-1.5"><span>Mathematics</span><span
+                                        class="text-[var(--mute)]">88%</span></div>
+                                <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden">
+                                    <div class="bar-fill h-full rounded-full"
+                                        style="width:88%;background:var(--accent)"></div>
+                                </div>
                             </div>
                             <div>
-                                <input type="radio" name="role" id="role-teacher" class="role-input hidden" />
-                                <label for="role-teacher"
-                                    class="role-label block text-center font-display font-semibold text-sm px-4 py-3 rounded-xl border border-[var(--line)] cursor-pointer">
-                                    Teacher
-                                </label>
+                                <div class="flex justify-between text-sm mb-1.5"><span>Physics</span><span
+                                        class="text-[var(--mute)]">71%</span></div>
+                                <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden">
+                                    <div class="bar-fill h-full rounded-full"
+                                        style="width:71%;background:var(--accent)"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5"><span>Chemistry</span><span
+                                        class="text-[var(--mute)]">64%</span></div>
+                                <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden">
+                                    <div class="bar-fill h-full rounded-full"
+                                        style="width:64%;background:var(--accent)"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5"><span>Comp. Science</span><span
+                                        class="text-[var(--mute)]">93%</span></div>
+                                <div class="h-1.5 rounded-full bg-[var(--line)] overflow-hidden">
+                                    <div class="bar-fill h-full rounded-full"
+                                        style="width:93%;background:var(--accent)"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Full name</label>
-                        <input type="text" placeholder="Gaurab Aryal"
-                            class="w-full px-4 py-3.5 rounded-xl border border-[var(--line)] bg-white text-base placeholder:text-[var(--mute)]" />
+                    <div class="border border-[var(--line)] rounded-3xl p-6 bg-[var(--ink)] text-[var(--paper)]">
+                        <h2 class="font-display font-bold text-lg tracking-tight mb-5">Class leaderboard</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-sm text-[#8A8A85] w-4">1</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-xs font-display font-semibold">
+                                    SP</div>
+                                <span class="text-sm flex-1">Sita Poudel</span>
+                                <span class="text-sm font-display font-semibold">96%</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="font-display text-sm text-[#8A8A85] w-4">2</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-display font-semibold">
+                                    RS</div>
+                                <span class="text-sm flex-1">Rohan Shrestha</span>
+                                <span class="text-sm font-display font-semibold">91%</span>
+                            </div>
+                            <div class="flex items-center gap-3 rounded-xl bg-white/[0.06] -mx-2 px-2 py-1.5">
+                                <span class="font-display text-sm text-[#8A8A85] w-4">4</span>
+                                <div
+                                    class="w-8 h-8 rounded-full bg-[var(--accent)] flex items-center justify-center text-xs font-display font-semibold">
+                                    GA</div>
+                                <span class="text-sm flex-1">You</span>
+                                <span class="text-sm font-display font-semibold">82%</span>
+                            </div>
+                        </div>
                     </div>
-
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Email</label>
-                        <input type="email" placeholder="you@school.edu"
-                            class="w-full px-4 py-3.5 rounded-xl border border-[var(--line)] bg-white text-base placeholder:text-[var(--mute)]" />
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Password</label>
-                        <input type="password" placeholder="At least 8 characters"
-                            class="w-full px-4 py-3.5 rounded-xl border border-[var(--line)] bg-white text-base placeholder:text-[var(--mute)]" />
-                    </div>
-
-                    <label class="flex items-start gap-2.5 text-sm text-[var(--mute)] pt-1">
-                        <input type="checkbox" class="w-4 h-4 mt-0.5 rounded border-[var(--line)] accent-[var(--accent)]" />
-                        <span>I agree to the <a href="#" class="underline hover:text-[var(--ink)]">Terms</a> and <a href="#" class="underline hover:text-[var(--ink)]">Privacy Policy</a></span>
-                    </label>
-
-                    <button type="submit"
-                        class="w-full font-display font-semibold text-base px-8 py-4 rounded-full bg-[var(--ink)] text-[var(--paper)] hover:bg-[var(--accent)] transition-colors mt-2">
-                        Create account →
-                    </button>
-                </form>
-
-                <div class="flex items-center gap-4 my-8">
-                    <span class="h-px flex-1 bg-[var(--line)]"></span>
-                    <span class="text-xs text-[var(--mute)]">OR</span>
-                    <span class="h-px flex-1 bg-[var(--line)]"></span>
                 </div>
-
-                <button
-                    class="w-full flex items-center justify-center gap-3 font-display font-semibold text-base px-8 py-4 rounded-full border border-[var(--line)] hover:border-[var(--ink)] transition-colors">
-                    <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.88c2.27-2.09 3.55-5.17 3.55-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.75-2.1-6.69-4.92H1.3v3.09C3.26 21.3 7.31 24 12 24z"/><path fill="#FBBC05" d="M5.31 14.33c-.24-.72-.38-1.49-.38-2.33s.14-1.61.38-2.33V6.58H1.3A11.98 11.98 0 000 12c0 1.93.46 3.76 1.3 5.42l4.01-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.3 6.58l4.01 3.09C6.25 6.85 8.89 4.75 12 4.75z"/></svg>
-                    Continue with Google
-                </button>
             </div>
-        </div>
+        </main>
     </div>
+
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
 </body>
+
 </html>

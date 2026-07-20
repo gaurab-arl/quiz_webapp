@@ -1,6 +1,6 @@
 
 
-from django.http import HttpResponse
+from django.shortcuts import render
 
 def admin_dashboard(request):
-    return HttpResponse("Admin Dashboard Page")
+    return render(request, 'admin_dashboard.html')
