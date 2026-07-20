@@ -11,5 +11,6 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('signup/', signup, name='signup'),
     path('dashboard/', dashboard, name='dashboard'),
-    path('admin-dashboard/', admin_dashboard, name='admin_dashboard'),
+    path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),
 ]
+
