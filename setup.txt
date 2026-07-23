@@ -1,0 +1,22 @@
+# Django>=6.0.0
+
+
+import os
+import subprocess
+import sys
+
+def run_command(command):
+    """Run a shell command and print output"""
+    print(f"\n{'='*50}")
+    print(f"Running: {command}")
+    print(f"{'='*50}\n")
+    result = subprocess.run(command, shell=True)
+    if result.returncode != 0:
+        print(f"Error running: {command}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    # Run all commands in sequence
+    run_command("py manage.py makemigrations")
+    run_command("py manage.py migrate")
+    run_command("py manage.py runserver")
