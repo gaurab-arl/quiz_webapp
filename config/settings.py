@@ -125,3 +125,10 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # Auth redirects
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'
+
+
+ALLOWED_HOSTS = [
+    "quiz-webapp-7e07.onrender.com",
+    "localhost",
+    "127.0.0.1"
+]
