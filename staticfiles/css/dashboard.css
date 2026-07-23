@@ -1,0 +1,53 @@
+/* ========================================
+   DASHBOARD.CSS — dashboard specific styles
+   ======================================== */
+
+/* ---------- segmented control ---------- */
+.seg-input:checked + .seg-label {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.seg-label {
+    transition: background .2s ease, color .2s ease;
+}
+
+/* ---------- chips (filter tags) ---------- */
+.chip-input:checked + .chip-label {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+}
+
+.chip-label {
+    transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.chip-input:checked + .chip-label .chip-check {
+    opacity: 1;
+}
+
+.chip-check {
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+/* ---------- nav items ---------- */
+.nav-item.active {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--paper);
+}
+
+.nav-item {
+    color: #9A9A95;
+    transition: background .2s ease, color .2s ease;
+}
+
+.nav-item:hover {
+    color: var(--paper);
+}
+
+/* ---------- progress bar ---------- */
+.bar-fill {
+    transition: width .6s cubic-bezier(.2, .8, .2, 1);
+}
